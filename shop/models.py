@@ -84,7 +84,7 @@ class Item(Entity):
     ordered = models.BooleanField('ordered')
 
     def __str__(self):
-        return f'{Product.name}' #??
+        return f'{self.product.name}' #??
     
     
     
