@@ -15,7 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from shop.api import api
+from ninja import NinjaAPI  
+
+
+from shop.api.product import product_router
+from shop.api.order import order_router
+from shop.api.Item import item_router
+from shop.api.category import category_router
+from shop.api.city import city_router
+from shop.api.address import address_router
+
+api = NinjaAPI()
+
+api.add_router("product/", product_router)
+api.add_router("order/", order_router)
+api.add_router("item/", item_router)
+api.add_router("category/",category_router)
+api.add_router("city/",city_router)
+api.add_router("address/",address_router)
+
 
 
 urlpatterns = [
