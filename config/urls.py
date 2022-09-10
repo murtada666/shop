@@ -25,7 +25,9 @@ from shop.api.category import category_router
 from shop.api.city import city_router
 from shop.api.address import address_router
 
-api = NinjaAPI()
+api = NinjaAPI(
+    title="stop & shop API"
+)
 
 api.add_router("product/", product_router)
 api.add_router("order/", order_router)
