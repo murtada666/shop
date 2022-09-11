@@ -1,5 +1,6 @@
 from decimal import Decimal
 from sqlite3 import Date
+import uuid
 from pydantic import UUID4
 from ninja import Schema
 from typing import List
@@ -74,7 +75,7 @@ class OrderOut(Schema):
     date: str = Date
     
 class AccountOut(Schema):
-    id: int
+    id: UUID4
     name: str
     orders: List[OrderOut] = None
     phone_number: int

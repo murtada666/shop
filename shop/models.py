@@ -1,9 +1,12 @@
 import datetime
+from operator import mod
 import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
-from ckeditor.fields import RichTextField
-from mptt.models import MPTTModel
+
+from shop.views import is_featured
+#from ckeditor.fields import RichTextField
+#from mptt.models import MPTTModel
 User = get_user_model()
 
 class Entity(models.Model):
@@ -11,6 +14,7 @@ class Entity(models.Model):
         abstract = True #we are telling ORM not to create a table for this class in the DB.
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    #id = models.IntegerField(primary_key=True)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
     
@@ -35,7 +39,7 @@ class Category(Entity):
     
 class Product(Entity):
     name = models.CharField('name', max_length=255)
-    description = RichTextField('description', null=True, blank=True)
+    description = models.TextField('description', null=True, blank=True)
     weight = models.FloatField('weight', null=True, blank=True)
     price = models.IntegerField('price')
     discounted_price = models.IntegerField('discounted price', default = 0)
@@ -45,6 +49,7 @@ class Product(Entity):
                                  blank=True,
                                  on_delete=models.SET_NULL,
                                  default=0)
+    is_featured = models.BooleanField('is featured')
     is_active = models.BooleanField('is active', default=True) # in case we wanted to make soft delete 
 
 
