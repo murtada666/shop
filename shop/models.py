@@ -4,7 +4,6 @@ import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from shop.views import is_featured
 #from ckeditor.fields import RichTextField
 #from mptt.models import MPTTModel
 User = get_user_model()
@@ -49,7 +48,7 @@ class Product(Entity):
                                  blank=True,
                                  on_delete=models.SET_NULL,
                                  default=0)
-    is_featured = models.BooleanField('is featured')
+    #is_featured = models.BooleanField('is featured')
     is_active = models.BooleanField('is active', default=True) # in case we wanted to make soft delete 
 
 
