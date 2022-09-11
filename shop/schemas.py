@@ -6,12 +6,12 @@ from typing import List
 
 class Category(Schema):
     name: str
-    desc: str
-    image: str
+    description: str = None
+    image: str = None
     is_active: bool = True
 
 class AddressIn(Schema):
-    work_address: bool = False
+    name: str
     city: str
     town: str
     address: str
@@ -36,20 +36,20 @@ class ProductIn(Schema):
     weight: str
     cost: int
     desc: str
-    image: int
+    image: str
     is_active: bool = True
     
 class ProductOut(Schema):
     id: UUID4
-    parent: Category
+    category : Category
     name: str
-    weight: str
-    cost: int
-    desc: str
+    weight: float
+    price: int
+    description: str
     image: str
     
 class Item(Schema):
-    id: ProductOut.id
+    id: UUID4
     name: str
     weight: str
     cost: int
@@ -64,7 +64,7 @@ class OrderIn(Schema):
     cost: int
   
 class OrderOut(Schema):
-    id: OrderIn.id
+    id: UUID4
     address: AddressOut
     item: List[Item] = None
     note: str = None

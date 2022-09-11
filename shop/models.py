@@ -24,9 +24,9 @@ class Category(Entity):
                             blank=True,
                             on_delete=models.CASCADE, default=0)
     name = models.CharField('name', max_length=255)
-    description = models.TextField('description')
+    description = models.TextField('description', null=True, blank= True)
     is_active = models.BooleanField('is active')
-    image = models.ImageField('image', upload_to='category/', default="")
+    image = models.ImageField('image', upload_to='category/', default="", null=True, blank= True)
     def __str__(self):
         if self.parent:
             return f'{self.name}'
@@ -114,7 +114,7 @@ class Town(Entity):
 class Address(Entity):
     user = models.ForeignKey(User, verbose_name='user', related_name='address',
                              on_delete=models.CASCADE)
-    work_address = models.BooleanField('work address', null=True, blank=True)
+    name = models.CharField('address name', max_length=255, default="user")
     town = models.ForeignKey(Town, related_name='towns', on_delete=models.CASCADE, null=True, blank=True)
     address = models.CharField('address', max_length=255, null=True, blank=True)
     x = models.CharField('x_coord', max_length=255, null=True, blank=True)
