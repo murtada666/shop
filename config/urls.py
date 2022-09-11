@@ -24,16 +24,22 @@ from shop.api.Item import item_router
 from shop.api.category import category_router
 from shop.api.city import city_router
 from shop.api.address import address_router
+<<<<<<< HEAD
+from shop.api.town import town_router
+api = NinjaAPI()
+=======
 
 api = NinjaAPI(
     title="stop & shop API"
 )
+>>>>>>> 454930fbf3ff040d612d223a227c4aaf310c1ece
 
 api.add_router("product/", product_router)
 api.add_router("order/", order_router)
 api.add_router("item/", item_router)
 api.add_router("category/",category_router)
 api.add_router("city/",city_router)
+api.add_router("town/",town_router)
 api.add_router("address/",address_router)
 
 
