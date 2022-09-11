@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    "ckeditor",#so we can use RichTextField
+    #"ckeditor",#so we can use RichTextField
     "shop",
 ]
 
