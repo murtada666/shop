@@ -21,10 +21,18 @@ class OrderDetails(admin.ModelAdmin):
         "ref_code",
     ]
 
+class CategoryDetails(admin.ModelAdmin):
+    list_display = [
+        "parent",
+        "name",
+        "is_active"
+    ]  
+    
+
 admin.site.register(Product, ProductDetails)    
 admin.site.register(Order, OrderDetails)
 admin.site.register(Item)
-admin.site.register(Category)
+admin.site.register(Category, CategoryDetails)
 admin.site.register(City)
 admin.site.register(Town)
 admin.site.register(Address)
