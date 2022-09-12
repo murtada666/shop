@@ -5,11 +5,15 @@ from pydantic import UUID4
 from ninja import Schema
 from typing import List
 
-class Category(Schema):
+class CategoryOut(Schema):
     name: str
     description: str = None
     image: str = None
     is_active: bool = True
+    
+    
+    
+#Category.update_forward_refs()
 
 class AddressIn(Schema):
     name: str
@@ -32,7 +36,7 @@ class AddressOut(Schema):
     
 class ProductIn(Schema):
     id: UUID4
-    parent: Category
+    parent: CategoryOut
     name: str
     weight: str
     cost: int
@@ -42,7 +46,7 @@ class ProductIn(Schema):
     
 class ProductOut(Schema):
     id: UUID4
-    category : Category
+    category : CategoryOut
     name: str
     weight: float
     price: int

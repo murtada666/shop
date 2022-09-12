@@ -22,6 +22,7 @@ def list_all_prodducts(request):
 def product_detalis(request, product_name: str ):
     product = Product.objects.get(name=product_name)
     print(product)
+    
     return product
 
 
