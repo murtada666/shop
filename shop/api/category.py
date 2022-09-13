@@ -2,7 +2,9 @@ from typing import List
 from unicodedata import name
 from ninja import Router
 from shop.models import Category
-from shop.schemas import CategoryOut
+from shop.schemas import CategoryOut, categoryFilterOut
+from django.shortcuts import get_object_or_404
+
 
 category_router = Router(tags=["Categories Endpoints"])
 
@@ -14,10 +16,18 @@ def all_categories(request):
     
     return categories
 
-@category_router.get("specific_category/", response=List[CategoryOut])
+@category_router.get("specific_category/", response=CategoryOut)
 def specific_category(request, category_name: str):
-    category = Category.objects.get(name=category_name)
-    kids = category.children.all()
+    #category = Category.objects.get(name=category_name)
+    #sub_category = Category.children.get(name=category_name)
+    category  = get_object_or_404(Category , name=category_name)
+    #sub_category = category.children.all()
     
-    print(category)
-    return kids
+    #print(category)
+    return category
+
+@category_router.get("filter/", response=categoryFilterOut)
+def filter(request, category_name):
+    category  = get_object_or_404(Category , name=category_name)
+    
+    return category
