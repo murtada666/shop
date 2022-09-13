@@ -12,7 +12,8 @@ class Entity(models.Model):
     class Meta:
         abstract = True #we are telling ORM not to create a table for this class in the DB.
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    #id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    ud = models.UUIDField(default=uuid.uuid4)
     #id = models.IntegerField(primary_key=True)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
@@ -48,7 +49,7 @@ class Product(Entity):
                                  blank=True,
                                  on_delete=models.SET_NULL,
                                  default=0)
-    #is_featured = models.BooleanField('is featured')
+    is_featured = models.BooleanField('is featured', default=False)
     is_active = models.BooleanField('is active', default=True) # in case we wanted to make soft delete 
 
 
