@@ -1,5 +1,4 @@
 from typing import List
-from unicodedata import name
 from ninja import Router
 from shop.models import Category
 from shop.schemas import CategoryOut, categoryFilterOut
@@ -17,7 +16,7 @@ def all_categories(request):
     return categories
 
 @category_router.get("specific_category/", response=CategoryOut)
-def specific_category(request, category_name: str):
+def specific_category(request, category_name):
     #category = Category.objects.get(name=category_name)
     #sub_category = Category.children.get(name=category_name)
     category  = get_object_or_404(Category , name=category_name)
