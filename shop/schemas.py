@@ -18,8 +18,9 @@ class CategoryOut(Schema):
 CategoryOut.update_forward_refs()
 
 class AddressIn(Schema):
+    user_id:int
     name: str
-    city: str
+    #city: str
     town: str
     address: str
     x: Decimal

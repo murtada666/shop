@@ -127,4 +127,5 @@ class Address(Entity):
     phone = models.CharField('phone number', max_length=255)
 
     def __str__(self):
-        return f'{self.user.first_name}- {self.address} - {self.town} - {self.town.city} - {self.phone}'
+       # return f'{self.user.first_name}- {self.address} - {self.town} - {self.town.city} - {self.phone}'
+       return f'{self.user.first_name}- {self.address} - {self.town} - {self.phone}'
