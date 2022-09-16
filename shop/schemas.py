@@ -1,12 +1,9 @@
 from decimal import Decimal
 from sqlite3 import Date
-import uuid
-from pydantic import UUID4
 from ninja import Schema
 from typing import List
 
 class CategoryOut(Schema):
-    #parent: "CategoryOut"
     name: str
     description: str = None
     image: str = None
@@ -17,29 +14,36 @@ class CategoryOut(Schema):
     
 CategoryOut.update_forward_refs()
 
-class AddressIn(Schema):
+class UserName(Schema):
     name: str
-    city: str
-    town: str
-    address: str
-    x: Decimal
-    y: Decimal
-    phone: str
     
-class AddressOut(Schema):
-    user: str = None
+class Town(Schema):
     city: str
-    town: str
+    Town: str
+
+    
+class AddressIn(Schema):
+    user: UserName
+    name: str
+    town: Town
+    address: str 
+    x: Decimal = None
+    y: Decimal = None
+    phone: str
+   
+class AddressOut(Schema):
+    user: UserName
+    town: Town
     address: str
-    x: Decimal
-    y: Decimal
+    x: Decimal = None
+    y: Decimal = None
     phone: str
     
 class ProductIn(Schema):
     id: int
     parent: CategoryOut
     name: str
-    weight: str
+    weight: float
     cost: int
     desc: str
     image: str
@@ -54,50 +58,55 @@ class ProductOut(Schema):
     description: str
     image: str
     
-class Item(Schema):
-    id: int
+class ProductToItem(Schema):
     name: str
-    weight: str
-    cost: int
-    image: str
+
+class AddressToOrder(Schema):
+    name: str
+    town: Town
+        
+class Items(Schema):
+    id: int
+    product: ProductToItem
+    item_qty: int = 0
+    # weight: str
+    # cost: int
+    # image: str
   
 class OrderIn(Schema):
-    id: int
-    address: AddressOut
-    item: List[Item] = None
+    user: UserName
+    address: AddressToOrder
+    items: List[Items] = None
     note: str = None
     ref_code: str = None
-    cost: int
+    delivery_fee: int = 1500
+    cost: int = 0
   
 class OrderOut(Schema):
     id: int
     address: AddressOut
-    item: List[Item] = None
+    items: List[Items] = None
     note: str = None
     ref_code: str = None
     delivery_fee: int = 1500
     cost: int
+    total: int
     date: str = Date
-    
+
+class OrderToAccount(Schema):
+    id: int
+    address: AddressToOrder
+    total:int
+        
 class AccountOut(Schema):
     id: int
-    name: str
-    orders: List[OrderOut] = None
+    name: UserName
+    orders: List[OrderToAccount] = None
     phone_number: int
-
-class AccountIn(Schema):
-    first_name: str
-    last_name: str
-    user_name: str
-    password1: str
-    password2: str
-    phone_number: int = None
-    email: str = None
-    
 
 class categoryFilterOut(Schema):
     name: str
     description: str
-    products: List[ProductOut]
+    products: List[ProductToItem]
     
     

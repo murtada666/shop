@@ -4,17 +4,12 @@ import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
-#from ckeditor.fields import RichTextField
-#from mptt.models import MPTTModel
 User = get_user_model()
 
 class Entity(models.Model):
     class Meta:
         abstract = True #we are telling ORM not to create a table for this class in the DB.
-
-    #id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    ud = models.UUIDField(default=uuid.uuid4)
-    #id = models.IntegerField(primary_key=True)
+    uid = models.UUIDField(default=uuid.uuid4)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
     
@@ -80,12 +75,14 @@ class Order(Entity):
     date = models.DateField(default=datetime.datetime.today)
     
     note = models.CharField('note', null=True, blank=True, max_length=255)
-    ref_code = models.CharField('ref code', max_length=255)
+    ref_code = models.CharField('ref code', max_length=255, null= True, blank= True)
     is_ordered = models.BooleanField('ordered', default= False)
     is_canceled = models.BooleanField('canceled', default= False)
     is_pending = models.BooleanField('pending', default= False)
     items = models.ManyToManyField(Item, verbose_name='items', related_name='order')
-    total = models.CharField('total', max_length=255, default= None)
+    delivery_fee = models.IntegerField('df', default = 1500)
+    cost = models.IntegerField('cost', default = 0)
+    total = models.IntegerField('total', default = 0)
 
     def __str__(self):
         return f'{self.user.first_name} + {self.total}'
@@ -93,10 +90,10 @@ class Order(Entity):
     @property
     def order_total(self):
         order_total = sum(
-           (i.product.price-i.product.price_discounted) * i.item_qty for i in self.items.all()
+           (i.product.price-i.product.discounted_price) * i.item_qty for i in self.items.all()
         )
-
-        return order_total
+        print(order_total)
+        return order_total + self.cost + self.delivery_fee
     
     
     
