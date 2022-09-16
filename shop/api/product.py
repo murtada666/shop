@@ -10,10 +10,11 @@ from shop.schemas import ProductIn, ProductOut
 product_router = Router(tags=["Products Endpoints"])
 
 
-@product_router.get("all_produects/", response=List[ProductOut])
-def list_all_prodducts(request):
+@product_router.get("all_products/", response=List[ProductOut])
+def list_all_products(request):
     products = Product.objects.all()
-    print(products)
+    #products = Product.objects.filter(is_active=True)
+    #print(products)
     #print(Product)
     return 200, products
 
@@ -22,9 +23,12 @@ def list_all_prodducts(request):
 def product_detalis(request, product_name: str ):
     product = Product.objects.get(name=product_name)
     print(product)
+    
     return product
 
 
-@product_router.get("featured_products/")
+@product_router.get("featured_products/", response=List[ProductOut])
 def featured_products(request):
-    pass
+    featured = Product.objects.filter(is_featured=True)
+    
+    return featured

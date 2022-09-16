@@ -5,11 +5,17 @@ from pydantic import UUID4
 from ninja import Schema
 from typing import List
 
-class Category(Schema):
+class CategoryOut(Schema):
+    #parent: "CategoryOut"
     name: str
     description: str = None
     image: str = None
     is_active: bool = True
+    children: List["CategoryOut"]
+    
+    
+    
+CategoryOut.update_forward_refs()
 
 class AddressIn(Schema):
     name: str
@@ -22,7 +28,6 @@ class AddressIn(Schema):
     
 class AddressOut(Schema):
     user: str = None
-    work_address: bool = False
     city: str
     town: str
     address: str
@@ -31,8 +36,8 @@ class AddressOut(Schema):
     phone: str
     
 class ProductIn(Schema):
-    id: UUID4
-    parent: Category
+    id: int
+    parent: CategoryOut
     name: str
     weight: str
     cost: int
@@ -41,8 +46,8 @@ class ProductIn(Schema):
     is_active: bool = True
     
 class ProductOut(Schema):
-    id: UUID4
-    category : Category
+    id: int
+    category : CategoryOut
     name: str
     weight: float
     price: int
@@ -50,14 +55,14 @@ class ProductOut(Schema):
     image: str
     
 class Item(Schema):
-    id: UUID4
+    id: int
     name: str
     weight: str
     cost: int
     image: str
   
 class OrderIn(Schema):
-    id: UUID4
+    id: int
     address: AddressOut
     item: List[Item] = None
     note: str = None
@@ -65,7 +70,7 @@ class OrderIn(Schema):
     cost: int
   
 class OrderOut(Schema):
-    id: UUID4
+    id: int
     address: AddressOut
     item: List[Item] = None
     note: str = None
@@ -75,7 +80,7 @@ class OrderOut(Schema):
     date: str = Date
     
 class AccountOut(Schema):
-    id: UUID4
+    id: int
     name: str
     orders: List[OrderOut] = None
     phone_number: int
@@ -88,4 +93,11 @@ class AccountIn(Schema):
     password2: str
     phone_number: int = None
     email: str = None
+    
+
+class categoryFilterOut(Schema):
+    name: str
+    description: str
+    products: List[ProductOut]
+    
     
