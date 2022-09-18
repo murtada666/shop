@@ -38,7 +38,7 @@ class AddressIn(Schema):
     user: UserNameIn
     name: str
     town: Town
-    address: str 
+    address: str #اقرب نقطة دالة
     #x: Decimal = None
     #y: Decimal = None
     phone: str
@@ -52,17 +52,15 @@ class AddressOut(Schema):
     phone: str
     
 class ProductIn(Schema):
-    id: int
     parent: CategoryOut
     name: str
     weight: float
     cost: int
-    desc: str
+    desc: str#/...............y
     image: str
     is_active: bool = True
     
 class ProductOut(Schema):
-    id: int
     category : CategoryOut
     name: str
     weight: float
@@ -95,8 +93,8 @@ class OrderIn(Schema):
     cost: int = 0
   
 class OrderOut(Schema):
-    #id: int
-    user: UserNameOut
+    id: int
+    #user: UserNameOut
     address: AddressOut
     items: List[Items] = None
     note: str = None

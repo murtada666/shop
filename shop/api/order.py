@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 order_router = Router(tags=["Order endpoints"])
 
-
+#test only
 @order_router.get("all/", response=List[OrderOut])
 def getAll(request):
     orders = Order.objects.all()
