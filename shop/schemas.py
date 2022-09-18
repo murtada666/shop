@@ -11,32 +11,44 @@ class CategoryOut(Schema):
     children: List["CategoryOut"]
     
     
-    
 CategoryOut.update_forward_refs()
 
-class UserName(Schema):
-    name: str
-    
+
+
+class CityOut(Schema):
+    name:str
 class Town(Schema):
-    city: str
-    Town: str
+    name: str
+    city: CityOut
+    
+class UserName(Schema):
+    first_name: str
+    last_name: str
+    
+class UserNameOut(UserName):
+    id: int
+
+class UserNameIn(UserName):
+    pass
+    
+
 
     
 class AddressIn(Schema):
-    user: UserName
+    user: UserNameIn
     name: str
     town: Town
     address: str 
-    x: Decimal = None
-    y: Decimal = None
+    #x: Decimal = None
+    #y: Decimal = None
     phone: str
    
 class AddressOut(Schema):
-    user: UserName
+    user: UserNameOut
     town: Town
     address: str
-    x: Decimal = None
-    y: Decimal = None
+    #x: Decimal = None
+    #y: Decimal = None
     phone: str
     
 class ProductIn(Schema):
@@ -74,7 +86,7 @@ class Items(Schema):
     # image: str
   
 class OrderIn(Schema):
-    user: UserName
+    user: UserNameIn
     address: AddressToOrder
     items: List[Items] = None
     note: str = None
@@ -83,7 +95,8 @@ class OrderIn(Schema):
     cost: int = 0
   
 class OrderOut(Schema):
-    id: int
+    #id: int
+    user: UserNameOut
     address: AddressOut
     items: List[Items] = None
     note: str = None
@@ -100,7 +113,7 @@ class OrderToAccount(Schema):
         
 class AccountOut(Schema):
     id: int
-    name: UserName
+    name: UserNameOut
     orders: List[OrderToAccount] = None
     phone_number: int
 

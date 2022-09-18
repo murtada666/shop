@@ -25,7 +25,7 @@ def product_detalis(request, product_name: str ):
     print(product)
     
     return product
-
+    
 
 @product_router.get("featured_products/", response=List[ProductOut])
 def featured_products(request):
