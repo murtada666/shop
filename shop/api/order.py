@@ -1,3 +1,4 @@
+from typing import List
 from ninja import Router
 from shop.api.address import user_addresses
 from shop.models import Order, Item
@@ -5,6 +6,20 @@ from shop.schemas import OrderIn,OrderOut, UserName
 from django.shortcuts import get_object_or_404
 
 order_router = Router(tags=["Order endpoints"])
+
+#test only
+@order_router.get("all/", response=List[OrderOut])
+def getAll(request):
+    orders = Order.objects.all()
+    
+    return orders
+
+@order_router.get("get_order/", response=OrderOut)
+def user_order(request, user_id: int):
+    t = Order.objects.get(user_id=user_id)
+    return t
+
+
 @order_router.post('make_order/', response = OrderOut)
 def make_order(request, order_in: OrderIn):
     
@@ -21,9 +36,4 @@ def make_order(request, order_in: OrderIn):
     
     t.total = t.order_total
     t.save()
-    return t
-
-@order_router.get("get_all/", response= OrderOut)
-def user_order(request, user):
-    t = Order.objects.get(user = user)
     return t

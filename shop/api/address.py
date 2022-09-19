@@ -1,8 +1,9 @@
-import tabnanny
-from unicodedata import name
+from ast import Try
+from cmath import phase
 from ninja import Router
 
-from shop.models import Address, Town
+
+from shop.models import Address, City, Town
 from shop.schemas import AddressIn, AddressOut
 
 address_router = Router(tags=["Address Endpoints"])
@@ -12,12 +13,17 @@ address_router = Router(tags=["Address Endpoints"])
 @address_router.get("user_addresses/", response=AddressOut)
 def user_addresses(request, user_id):
     address = Address.objects.get(id=user_id)
-    return address
+    
+    print(address)
+    
+    return address   
+        
 
 
-@address_router.post("new_address/", response=AddressOut)
-def new_address(request, address_in: AddressIn):
-    t = Address.objects.create(
+@address_router.post("new_address/")
+def new_address(request,address_in: AddressIn):
+    #address = Address.objects.create
+    userAddress = Address.objects.create(
         user_id=address_in.user_id,
         name=address_in.name,
         #city=address_in.city,
@@ -27,4 +33,5 @@ def new_address(request, address_in: AddressIn):
         y=address_in.y,
         phone=address_in.phone
         )
-    return t
+    
+    return userAddress

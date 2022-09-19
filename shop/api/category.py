@@ -14,7 +14,7 @@ def all_categories(request):
     categories = Category.objects.all()
     
     return categories
-
+'''
 @category_router.get("specific_category/", response=CategoryOut)
 def specific_category(request, category_name):
     #category = Category.objects.get(name=category_name)
@@ -24,6 +24,7 @@ def specific_category(request, category_name):
     
     #print(category)
     return category
+'''
 
 @category_router.get("filter/", response=categoryFilterOut)
 def filter(request, category_name):

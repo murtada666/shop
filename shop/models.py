@@ -9,6 +9,7 @@ User = get_user_model()
 class Entity(models.Model):
     class Meta:
         abstract = True #we are telling ORM not to create a table for this class in the DB.
+        
     uid = models.UUIDField(default=uuid.uuid4)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(editable=False, auto_now=True)
@@ -118,9 +119,9 @@ class Address(Entity):
                              on_delete=models.CASCADE)
     name = models.CharField('address name', max_length=255, default="user")
     town = models.ForeignKey(Town, related_name='towns', on_delete=models.CASCADE, null=True, blank=True)
-    address = models.CharField('address', max_length=255, null=True, blank=True)
-    x = models.CharField('x_coord', max_length=255, null=True, blank=True)
-    y = models.CharField('y_coord', max_length=255, null=True, blank=True)
+    address = models.CharField('اقرب نقطة دالة', max_length=255, null=True, blank=True)
+    #x = models.CharField('x_coord', max_length=255, null=True, blank=True)
+    #y = models.CharField('y_coord', max_length=255, null=True, blank=True)
     phone = models.CharField('phone number', max_length=255)
 
     def __str__(self):
