@@ -82,7 +82,6 @@ class Order(Entity):
     is_pending = models.BooleanField('pending', default= False)
     items = models.ManyToManyField(Item, verbose_name='items', related_name='order')
     delivery_fee = models.IntegerField('df', default = 1500)
-    cost = models.IntegerField('cost', default = 0)
     total = models.IntegerField('total', default = 0)
 
     def __str__(self):

@@ -16,6 +16,7 @@ class ItemDetails(admin.ModelAdmin):
         "user",
         "product",
         "item_qty",
+        "id",
         "ordered",
     ]
 class OrderDetails(admin.ModelAdmin):
