@@ -15,12 +15,12 @@ CategoryOut.update_forward_refs()
 
 
 class CityOut(Schema):
-    name:str
+    name:str = None
 
 
 class Town(Schema):
-    name: str
-    city: CityOut
+    name: str = None
+    city: CityOut = None
    
     
 class UserName(Schema):
