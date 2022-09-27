@@ -7,6 +7,10 @@ from shop.api.Item import item_router
 from shop.api.category import category_router
 from shop.api.address import address_router
 from shop.api.favourite import favourite_router
+
+from config import settings
+from django.conf.urls.static import static
+
 api = NinjaAPI(
     title="stop & shop API"
 )
@@ -23,3 +27,5 @@ urlpatterns = [
     path("api/", api.urls),
     path('accounts/', include('allauth.urls')),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
