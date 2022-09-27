@@ -27,7 +27,7 @@ def specific_category(request, category_name):
 '''
 
 @category_router.get("filter/", response=categoryFilterOut)
-def filter(request, category_name):
+def filter(request, category_name: str):
     category  = get_object_or_404(Category , name=category_name)
     
     return category

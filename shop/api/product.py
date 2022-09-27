@@ -1,16 +1,16 @@
 from typing import List
 from ninja import Router
 from shop.models import Product
-from shop.schemas import ProductOut
+from shop.schemas import CardProductOut, ProductOut
 
 product_router = Router(tags=["Products Endpoints"])
 
 #getting all products
-@product_router.get("all_products/", response=List[ProductOut])
-def list_all_products(request):
-    products = Product.objects.all()
+#@product_router.get("all_products/", response=List[ProductOut])
+#def list_all_products(request):
+    #products = Product.objects.all()
 
-    return 200, products
+    #return 200, products
 
 #getting the product by name
 @product_router.get("product_details/", response=ProductOut)
@@ -20,7 +20,7 @@ def product_detalis(request, product_name: str ):
     return product
     
 #getting the featured products only    
-@product_router.get("featured_products/", response=List[ProductOut])
+@product_router.get("featured_products/", response=List[CardProductOut])
 def featured_products(request):
     featured = Product.objects.filter(is_featured=True)
     

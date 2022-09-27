@@ -4,14 +4,19 @@ from unicodedata import name
 from ninja import Schema
 from typing import List
 
+
+# class CategoryOut(Schema):
+#     name: str
+#     description: str = None
+#     image: str = None
+#     is_active: bool = True
+#     children: List["CategoryOut"]
+    
+# CategoryOut.update_forward_refs()
+
 class CategoryOut(Schema):
     name: str
-    description: str = None
-    image: str = None
-    is_active: bool = True
-    children: List["CategoryOut"]
-    
-CategoryOut.update_forward_refs()
+    image: str
 
 
 class CityOut(Schema):
@@ -55,18 +60,29 @@ class AddressOut(Schema):
 #     image: str
 #     is_active: bool = True
     
-    
-class ProductOut(Schema):
-    category : CategoryOut
+class CategoryProductOut(Schema):
     name: str
-    weight: float
+    is_active: bool = True
+
+class ProductOut(Schema):
+    category : CategoryProductOut
+    name: str
+    #weight: float = None
     price: int
     description: str
+    image: str
+    
+class CardProductOut(Schema):
+    name: str
+    price: int
     image: str
     
     
 class ProductToItem(Schema):
     name: str
+    price: int
+    image: str
+    
 
 
 class AddressToOrder(Schema):
