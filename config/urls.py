@@ -6,7 +6,7 @@ from shop.api.order import order_router
 from shop.api.Item import item_router
 from shop.api.category import category_router
 from shop.api.address import address_router
-
+from shop.api.favourite import favourite_router
 api = NinjaAPI(
     title="stop & shop API"
 )
@@ -16,6 +16,7 @@ api.add_router("product/", product_router)
 api.add_router("item/", item_router)
 api.add_router("address/",address_router)
 api.add_router("order/", order_router)
+api.add_router("product/", favourite_router)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

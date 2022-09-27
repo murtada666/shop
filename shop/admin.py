@@ -34,7 +34,8 @@ class CategoryDetails(admin.ModelAdmin):
     ]  
     
 
-admin.site.register(Product, ProductDetails)    
+admin.site.register(Product, ProductDetails)
+admin.site.register(Favourite)      
 admin.site.register(Order, OrderDetails)
 admin.site.register(Item, ItemDetails)
 admin.site.register(Category, CategoryDetails)

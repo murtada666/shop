@@ -52,6 +52,13 @@ class Product(Entity):
     def __str__(self):
         return self.name
     
+class Favourite(Entity):
+    user = models.ForeignKey(User,verbose_name='user', related_name='favourites', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='product', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.product.name}'
+    
 class Item(Entity):
     """
     Product can live alone in the system, while
