@@ -153,4 +153,4 @@ class ItemQty(Schema):
     
 class Favourites(Schema):
     user_id: int
-    products: List[ProductToItem]
+    product: ProductToItem

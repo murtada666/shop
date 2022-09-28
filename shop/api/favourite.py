@@ -9,3 +9,9 @@ favourite_router = Router(tags=["Favourites"])
 def make_fav(request, user_id: int):
     t = Favourite.objects.filter(user_id = user_id).all()
     return t
+
+@favourite_router.post("user_fav/", response= Favourites)
+def make_fav(request, user_id: int, product_id: int):
+    t = Favourite.objects.create(user_id = user_id, product_id = product_id)
+    return t
+
